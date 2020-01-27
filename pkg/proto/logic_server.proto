@@ -1,0 +1,9 @@
+syntax = "proto3";
+import "logic_client.proto";
+package pb;
+
+
+service LogicForServerExt {
+    // 发送消息
+    rpc SendMessage (SendMessageReq) returns (SendMessageResp);
+}

@@ -1,0 +1,24 @@
+[logic-rpc]
+rpcConnListenAddr="0.0.0.0:50000"
+rprClientExtListenAddr="0.0.0.0:50001"
+rpcServerExtListenAddr="0.0.0.0:50002"
+connRPCAddrs="addrs:///127.0.0.1:60000,127.0.0.1:60001"
+
+[logic-mysql]
+mysqlAddress= "127.0.0.1"
+mysqlPort=3306
+mysqlUser="root"
+mysqlPassword="1234"
+mysqlDb="gochat"
+
+[logic-consul]
+consulHost="127.0.0.1"
+consulPort=8051
+
+[logic-redis]
+redisAddress="127.0.0.1"
+redisPassword=6379
+
+[logic-nsq]
+nsqHost="127.0.0.1"
+nsqPort=4150
