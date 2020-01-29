@@ -12,10 +12,10 @@ import (
 	"google.golang.org/grpc"
 )
 
-type ConnIntServer struct{}
+type ConnForLogicServer struct{}
 
 // Message 投递消息
-func (s *ConnIntServer) DeliverMessage(ctx context.Context, req *pb.DeliverMessageReq) (*pb.DeliverMessageResp, error) {
+func (s *ConnForLogicServer) DeliverMessage(ctx context.Context, req *pb.DeliverMessageReq) (*pb.DeliverMessageResp, error) {
 	return &pb.DeliverMessageResp{}, tcp_conn.DeliverMessage(ctx, req)
 }
 
@@ -34,7 +34,7 @@ func StartRPCServer() {
 		panic(err)
 	}
 	server := grpc.NewServer(grpc.UnaryInterceptor(UnaryServerInterceptor))
-	pb.RegisterConnIntServer(server, &ConnIntServer{})
+	pb.RegisterConnForLogicExtServer(server, &ConnForLogicServer{})
 	logger.Logger.Debug("rpc服务已经开启")
 	err = server.Serve(listener)
 	if err != nil {

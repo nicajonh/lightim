@@ -13,8 +13,8 @@ import (
 
 
 var (
-	LogicConSulIntClient   pb.LogicIntClient
-	ConnectConSulIntClient pb.ConnIntClient
+	LogicConSulIntClient   pb.LogicForConnExtClient
+	ConnectConSulIntClient pb.ConnForLogicExtClient
 )
 
 func InitConSulLogicIntClient(addr string,servicename string){
@@ -30,7 +30,7 @@ func InitConSulLogicIntClient(addr string,servicename string){
 		panic(err)
 	}
 
-	LogicIntClient = pb.NewLogicIntClient(conn)
+	LogicConSulIntClient = pb.NewLogicForConnExtClient(conn)
 }
 
 func InitConSulConnIntClient(addr string,servicename string) {
@@ -46,5 +46,5 @@ func InitConSulConnIntClient(addr string,servicename string) {
 		panic(err)
 	}
 
-	ConnectIntClient = pb.NewConnIntClient(conn)
+	ConnectConSulIntClient = pb.NewConnForLogicExtClient(conn)
 }

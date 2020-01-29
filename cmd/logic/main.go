@@ -16,8 +16,9 @@ func main() {
 	// 初始化自增id配置
 	util.InitUID(db.DBCli)
 
+	logicConf:=config.Conf.Logic
 	// 初始化RpcClient
-	rpc_cli.InitConnIntClient(config.LogicConf.ConnRPCAddrs)
+	rpc_cli.InitConnIntClient(logicConf.LogicRpcConf.ConnRPCAddrs)
 
 	/*// 启动nsq消费服务
 	go func() {

@@ -14,10 +14,10 @@ func main() {
 		defer util.RecoverPanic()
 		ws_conn.StartRPCServer()
 	}()
-
+	connConf:=config.Conf.Connect
 	// 初始化Rpc Client
-	rpc_cli.InitLogicIntClient(config.WSConf.LogicRPCAddrs)
+	rpc_cli.InitLogicIntClient(connConf.ConnWebsocket.LogicRPCAddrs)
 
 	// 启动长链接服务器
-	ws_conn2.StartWSServer(config.WSConf.WSListenAddr)
+	ws_conn2.StartWSServer(connConf.ConnWebsocket.WSListenAddr)
 }

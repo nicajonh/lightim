@@ -21,7 +21,7 @@ require (
 	github.com/nsqio/go-nsq v1.0.8
 	github.com/onsi/ginkgo v1.11.0 // indirect
 	github.com/onsi/gomega v1.8.1 // indirect
-	github.com/spf13/viper v1.4.0 // indirect
+	github.com/spf13/viper v1.4.0
 	go.uber.org/zap v1.10.0
 	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect
 	golang.org/x/net v0.0.0-20190620200207-3b0461eec859

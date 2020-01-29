@@ -16,24 +16,24 @@ import (
 func StartConsulRpcServer() {
 	go func() {
 		defer util.RecoverPanic()
-
-		intListen, err := net.Listen("tcp", config.LogicConf.RPCIntListenAddr)
+		logicConf:=config.Conf.Logic
+		intListen, err := net.Listen("tcp", logicConf.LogicRpcConf.RpcConnListenAddr)
 		if err != nil {
 			panic(err)
 		}
 		intServer := grpc.NewServer(grpc.UnaryInterceptor(LogicIntInterceptor))
 
-		cr := register.NewConsulRegister(fmt.Sprintf("%s:%d", config.LogicConf.ConsulHost, config.LogicConf.ConsulPort), 15)
+		cr := register.NewConsulRegister(fmt.Sprintf("%s:%d", logicConf.LogicConsul.ConsulHost, logicConf.LogicConsul.ConsulPort), 15)
 		err=cr.Register(&discovery.RegisterInfo{
-			Host:           config.LogicConf.ConsulHost,
-			Port:           config.LogicConf.ConsulPort,
+			Host:           logicConf.LogicConsul.ConsulHost,
+			Port:           logicConf.LogicConsul.ConsulPort,
 			ServiceName:    "LogicServer",
 			UpdateInterval: time.Second,
 		})
 		if err != nil {
 			panic(err)
 		}
-		pb.RegisterLogicIntServer(intServer, &LogicIntServer{})
+		pb.RegisterLogicForConnExtServer(intServer, &LogicForConnServer{})
 		err = intServer.Serve(intListen)
 		if err != nil {
 			panic(err)
@@ -42,23 +42,23 @@ func StartConsulRpcServer() {
 
 	go func() {
 		defer util.RecoverPanic()
-
-		extListen, err := net.Listen("tcp", config.LogicConf.ClientRPCExtListenAddr)
+		logicConf:=config.Conf.Logic
+		extListen, err := net.Listen("tcp", logicConf.LogicRpcConf.RprClientExtListenAddr)
 		if err != nil {
 			panic(err)
 		}
 		extServer := grpc.NewServer(grpc.UnaryInterceptor(LogicClientExtInterceptor))
-		cr := register.NewConsulRegister(fmt.Sprintf("%s:%d", config.LogicConf.ConsulHost, config.LogicConf.ConsulPort), 15)
+		cr := register.NewConsulRegister(fmt.Sprintf("%s:%d", logicConf.LogicConsul.ConsulHost, logicConf.LogicConsul.ConsulPort), 15)
 		err=cr.Register(&discovery.RegisterInfo{
-			Host:           config.LogicConf.ConsulHost,
-			Port:           config.LogicConf.ConsulPort,
+			Host:           logicConf.LogicConsul.ConsulHost,
+			Port:           logicConf.LogicConsul.ConsulPort,
 			ServiceName:    "LogicClientExt",
 			UpdateInterval: time.Second,
 		})
 		if err != nil {
 			panic(err)
 		}
-		pb.RegisterLogicClientExtServer(extServer, &LogicClientExtServer{})
+		pb.RegisterLogicForClientExtServer(extServer, &LogicClientExtServer{})
 		err = extServer.Serve(extListen)
 		if err != nil {
 			panic(err)
@@ -67,23 +67,23 @@ func StartConsulRpcServer() {
 
 	go func() {
 		defer util.RecoverPanic()
-
-		intListen, err := net.Listen("tcp", config.LogicConf.ServerRPCExtListenAddr)
+		logicConf:=config.Conf.Logic
+		intListen, err := net.Listen("tcp", logicConf.LogicRpcConf.RpcServerExtListenAddr)
 		if err != nil {
 			panic(err)
 		}
 		intServer := grpc.NewServer(grpc.UnaryInterceptor(LogicServerExtInterceptor))
-		cr := register.NewConsulRegister(fmt.Sprintf("%s:%d", config.LogicConf.ConsulHost, config.LogicConf.ConsulPort), 15)
+		cr := register.NewConsulRegister(fmt.Sprintf("%s:%d", logicConf.LogicConsul.ConsulHost, logicConf.LogicConsul.ConsulPort), 15)
 		err=cr.Register(&discovery.RegisterInfo{
-			Host:           config.LogicConf.ConsulHost,
-			Port:           config.LogicConf.ConsulPort,
+			Host:           logicConf.LogicConsul.ConsulHost,
+			Port:           logicConf.LogicConsul.ConsulPort,
 			ServiceName:    "LogicServerExt",
 			UpdateInterval: time.Second,
 		})
 		if err != nil {
 			panic(err)
 		}
-		pb.RegisterLogicServerExtServer(intServer, &LogicServerExtServer{})
+		pb.RegisterLogicForServerExtServer(intServer, &LogicServerExtServer{})
 		err = intServer.Serve(intListen)
 		if err != nil {
 			panic(err)

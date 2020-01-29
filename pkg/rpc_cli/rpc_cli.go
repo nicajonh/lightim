@@ -10,8 +10,8 @@ import (
 )
 
 var (
-	LogicIntClient   pb.LogicIntClient
-	ConnectIntClient pb.ConnIntClient
+	LogicForConnExtClient   pb.LogicForConnExtClient
+	ConnForLogicExtClient pb.ConnForLogicExtClient
 )
 
 func InitLogicIntClient(addr string) {
@@ -20,7 +20,7 @@ func InitLogicIntClient(addr string) {
 		logger.Sugar.Error(err)
 		panic(err)
 	}
-	LogicIntClient = pb.NewLogicIntClient(conn)
+	LogicForConnExtClient = pb.NewLogicForConnExtClient(conn)
 }
 
 func InitConnIntClient(addr string) {
@@ -31,5 +31,5 @@ func InitConnIntClient(addr string) {
 		panic(err)
 	}
 
-	ConnectIntClient = pb.NewConnIntClient(conn)
+	ConnForLogicExtClient = pb.NewConnForLogicExtClient(conn)
 }
