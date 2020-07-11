@@ -61,12 +61,13 @@ func (*handler) SignIn(ctx *ConnContext, input pb.Input) {
 		return
 	}
 
-	_, err = rpc_cli.LogicIntClient.SignIn(grpclib.ContextWithRequstId(context.TODO(), input.RequestId), &pb.SignInReq{
+	_, err = rpc_cli.LogicForConnExtClient.SignIn(grpclib.ContextWithRequstId(context.TODO(), input.RequestId), &pb.SignInReq{
 		AppId:    signIn.AppId,
 		UserId:   signIn.UserId,
 		DeviceId: signIn.DeviceId,
 		Token:    signIn.Token,
-		ConnAddr: config.ConnConfig.LocalAddr,
+		//ConnAddr: config.ConnConfig.LocalAddr,
+		ConnAddr: config.Conf.Connect.ConnWebsocket.LocalAddr,
 	})
 
 	ctx.Output(pb.PackageType_PT_SIGN_IN, input.RequestId, err, nil)
@@ -99,7 +100,7 @@ func (*handler) Sync(ctx *ConnContext, input pb.Input) {
 		return
 	}
 
-	resp, err := rpc_cli.LogicIntClient.Sync(grpclib.ContextWithRequstId(context.TODO(), input.RequestId), &pb.SyncReq{
+	resp, err := rpc_cli.LogicForConnExtClient.Sync(grpclib.ContextWithRequstId(context.TODO(), input.RequestId), &pb.SyncReq{
 		AppId:    ctx.AppId,
 		UserId:   ctx.UserId,
 		DeviceId: ctx.DeviceId,
@@ -129,7 +130,7 @@ func (*handler) MessageACK(ctx *ConnContext, input pb.Input) {
 		return
 	}
 
-	_, _ = rpc_cli.LogicIntClient.MessageACK(grpclib.ContextWithRequstId(context.TODO(), input.RequestId), &pb.MessageACKReq{
+	_, _ = rpc_cli.LogicForConnExtClient.MessageACK(grpclib.ContextWithRequstId(context.TODO(), input.RequestId), &pb.MessageACKReq{
 		AppId:       ctx.AppId,
 		UserId:      ctx.UserId,
 		DeviceId:    ctx.DeviceId,
@@ -140,7 +141,7 @@ func (*handler) MessageACK(ctx *ConnContext, input pb.Input) {
 
 // Offline 设备离线
 func (*handler) Offline(ctx *ConnContext) {
-	_, _ = rpc_cli.LogicIntClient.Offline(context.TODO(), &pb.OfflineReq{
+	_, _ = rpc_cli.LogicForConnExtClient.Offline(context.TODO(), &pb.OfflineReq{
 		AppId:    ctx.AppId,
 		UserId:   ctx.UserId,
 		DeviceId: ctx.DeviceId,

@@ -7,7 +7,6 @@ import (
 	"net"
 	"sync"
 	"time"
-
 	"go.uber.org/zap"
 )
 
