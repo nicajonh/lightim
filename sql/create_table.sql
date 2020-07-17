@@ -189,8 +189,8 @@ CREATE TABLE `message`
     `id`               bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
     `app_id`           int(11)             NOT NULL COMMENT 'app_id',
     `message_type`     tinyint(1)          NOT NULL COMMENT '0:文本,1:语音,2:视频'
-    `audio_url`        varchar(60)         DEFAULT '' COMMENT '语音消息url'
-    `video_url`        varchar(60)         DEFAULT '' COMMENT '视频消息url'
+    --`audio_url`        varchar(60)         DEFAULT '' COMMENT '语音消息url'
+    --`video_url`        varchar(60)         DEFAULT '' COMMENT '视频消息url'
     `object_type`      tinyint(4)          NOT NULL COMMENT '所属类型，1：用户；2：群组',
     `object_id`        bigint(20) unsigned NOT NULL COMMENT '所属类型的id',
     `request_id`       bigint(20)          NOT NULL COMMENT '请求id',

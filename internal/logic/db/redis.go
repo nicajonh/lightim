@@ -10,8 +10,7 @@ import (
 var RedisCli *redis.Client
 
 func InitDB() {
-	addr := config.LogicConf.RedisIP
-
+	addr := config.Conf.Logic.LogicRedis.RedisAddress
 	RedisCli = redis.NewClient(&redis.Options{
 		Addr: addr,
 		DB:   0,

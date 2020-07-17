@@ -84,7 +84,7 @@ func (c *WSConnContext) Sync(input pb.Input) {
 		return
 	}
 
-	resp, err := rpc_cli.LogicIntClient.Sync(grpclib.ContextWithRequstId(context.TODO(), input.RequestId), &pb.SyncReq{
+	resp, err := rpc_cli.LogicForConnExtClient.Sync(grpclib.ContextWithRequstId(context.TODO(), input.RequestId), &pb.SyncReq{
 		AppId:    c.AppId,
 		UserId:   c.UserId,
 		DeviceId: c.DeviceId,
@@ -115,7 +115,7 @@ func (c *WSConnContext) MessageACK(input pb.Input) {
 		return
 	}
 
-	_, _ = rpc_cli.LogicIntClient.MessageACK(grpclib.ContextWithRequstId(context.TODO(), input.RequestId), &pb.MessageACKReq{
+	_, _ = rpc_cli.LogicForConnExtClient.MessageACK(grpclib.ContextWithRequstId(context.TODO(), input.RequestId), &pb.MessageACKReq{
 		AppId:       c.AppId,
 		UserId:      c.UserId,
 		DeviceId:    c.DeviceId,
@@ -195,7 +195,7 @@ func (c *WSConnContext) Release() {
 
 	// 通知业务服务器设备下线
 	if c.DeviceId != PreConn {
-		_, _ = rpc_cli.LogicIntClient.Offline(context.TODO(), &pb.OfflineReq{
+		_, _ = rpc_cli.LogicForConnExtClient.Offline(context.TODO(), &pb.OfflineReq{
 			AppId:    c.AppId,
 			UserId:   c.UserId,
 			DeviceId: c.DeviceId,

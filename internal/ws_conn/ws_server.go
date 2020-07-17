@@ -42,12 +42,12 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write(bytes)
 	}
 
-	_, err := rpc_cli.LogicIntClient.SignIn(grpclib.ContextWithRequstId(context.TODO(), requestId), &pb.SignInReq{
+	_, err := rpc_cli.LogicForConnExtClient.SignIn(grpclib.ContextWithRequstId(context.TODO(), requestId), &pb.SignInReq{
 		AppId:    appId,
 		UserId:   userId,
 		DeviceId: deviceId,
 		Token:    token,
-		ConnAddr: config.WSConf.LocalAddr,
+		ConnAddr: config.Conf.Connect.ConnWebsocket.LocalAddr,
 	})
 
 	s, _ := status.FromError(err)

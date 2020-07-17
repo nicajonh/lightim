@@ -1,6 +1,8 @@
 package consume
 
 import (
+	"fmt"
+	"lightim/config"
 	"lightim/internal/logic/db"
 	"time"
 	"github.com/nsqio/go-nsq"
@@ -8,15 +10,16 @@ import (
 
 // NsqConsumer 消费消息
 func NsqConsumer(topic, channel string, handle func(message *nsq.Message) error, concurrency int) {
-	config := nsq.NewConfig()
-	config.LookupdPollInterval = 1 * time.Second
+	aconfig := nsq.NewConfig()
+	aconfig.LookupdPollInterval = 1 * time.Second
 
-	consumer, err := nsq.NewConsumer(topic, channel, config)
+	consumer, err := nsq.NewConsumer(topic, channel, aconfig)
 	if err != nil {
 		panic(err)
 	}
 	consumer.AddConcurrentHandlers(nsq.HandlerFunc(handle), concurrency)
-	err = consumer.ConnectToNSQD(config.NSQIP)
+	address:=fmt.Sprintf("%s:%s",config.Conf.Logic.LogicNsq.NsqHost,config.Conf.Logic.LogicNsq.NsqPort)
+	err = consumer.ConnectToNSQD(address)
 	if err != nil {
 		panic(err)
 	}

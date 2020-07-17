@@ -1,6 +1,8 @@
 package produce
 
 import (
+	"fmt"
+	"lightim/config"
 	"lightim/pkg/pb"
 	"github.com/nsqio/go-nsq"
 )
@@ -10,7 +12,8 @@ var producer *nsq.Producer
 func init() {
 	var err error
 	cfg := nsq.NewConfig()
-	producer, err = nsq.NewProducer(config.NSQIP, cfg)
+	address:=fmt.Sprintf("%s:%s",config.Conf.Logic.LogicNsq.NsqHost,config.Conf.Logic.LogicNsq.NsqPort)
+	producer, err = nsq.NewProducer(address, cfg)
 	if nil != err {
 		panic("nsq new panic")
 	}

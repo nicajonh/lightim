@@ -1,6 +1,6 @@
 module lightim
 
-go 1.13.5
+go 1.14
 
 require (
 	github.com/armon/go-metrics v0.0.0-20190430140413-ec5e00d3c878 // indirect

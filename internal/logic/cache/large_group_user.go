@@ -20,7 +20,7 @@ type largeGroupUserCache struct{}
 
 var LargeGroupUserCache = new(largeGroupUserCache)
 
-func (*largeGroupUserCache) Key(appId, groupId int64) string {
+func (c *largeGroupUserCache) Key(appId, groupId int64) string {
 	return LargeGroupUserKey + strconv.FormatInt(appId, 10) + ":" + strconv.FormatInt(groupId, 10)
 }
 
